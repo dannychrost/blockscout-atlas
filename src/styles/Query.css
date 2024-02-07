@@ -1,0 +1,48 @@
+.query {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  font-family: verdana, sans-serif;
+}
+#query-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: calc(100vh - 200px);
+}
+.query-table-btn {
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  margin: 0;
+  display: block;
+  color: white;
+  background-color: #282c34;
+  font-family: inherit;
+  border-style: groove;
+}
+.query-table-btn:hover {
+  background-color: white;
+  color: #282c34;
+}
+#query-table-l {
+  border-radius: 0 0 0 20px;
+}
+#query-table-m {
+  border-radius: 0 0 0 0;
+}
+#query-table-r {
+  border-radius: 0 0 20px 0;
+}
+li {
+  border: 1px solid #ccc; /* Replace #ccc with whatever color you prefer */
+  padding: 8px; /* Adjust the padding as needed */
+  list-style-type: none; /* Optional: removes the default list item indicator */
+}
+
+ul {
+  padding-left: 0; /* Optional: removes default padding */
+}

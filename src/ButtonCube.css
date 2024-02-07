@@ -1,0 +1,53 @@
+/* FallingCube.css */
+.bcube {
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  /* The size is controlled by the parent component's style, which should be 100% of the button */
+  transform-style: preserve-3d;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  left: 17px;
+}
+
+/* Common styles for all faces */
+.bcube div {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.5); /* Semi-transparent white */
+  background-color: rgba(255, 255, 255, 0.1); /* Translucent faces */
+  box-shadow: 0 0 10px rgba(180, 180, 255, 0.8); /* Neon glow */
+  border: 1px solid rgba(255, 255, 255, 0.75); /* Slightly more opaque white borders */
+}
+
+/* Individual face positioning */
+.face1bc {
+  transform: rotateY(0deg) translateZ(25px);
+}
+.face2bc {
+  transform: rotateY(90deg) translateZ(25px);
+}
+.face3bc {
+  transform: rotateY(180deg) translateZ(25px);
+}
+.face4bc {
+  transform: rotateY(-90deg) translateZ(25px);
+}
+.face5bc {
+  transform: rotateX(90deg) translateZ(25px);
+}
+.face6bc {
+  transform: rotateX(-90deg) translateZ(25px);
+}
+
+@keyframes rotateCube {
+  from {
+    transform: rotateX(0) rotateY(0) rotateZ(0);
+  }
+  to {
+    transform: rotateX(360deg) rotateY(360deg) rotateZ(360deg);
+  }
+}

@@ -1,0 +1,31 @@
+.address-container {
+  position: relative;
+  display: inline-block;
+}
+
+.address-tooltip {
+  visibility: hidden;
+  width: auto;
+  background-color: #282c34;
+  color: #c0c0c0;
+  text-align: center;
+  border-radius: 20px;
+  padding: 5px;
+  position: absolute;
+  z-index: 1000;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  white-space: nowrap;
+}
+
+.address-container:hover .address-tooltip {
+  visibility: visible;
+}
+
+.address-container * {
+  overflow: visible !important;
+}
+.hash-links {
+  color: #c0c0c0;
+}

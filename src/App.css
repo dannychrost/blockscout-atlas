@@ -1,0 +1,150 @@
+.App {
+  /*background-image: linear-gradient(rgb(109, 109, 221), rgb(214, 113, 113));*/
+  background-image: linear-gradient(rgb(109, 109, 221), #282c34);
+
+  overflow: hidden;
+}
+
+.App-header {
+  background-color: inherit;
+  height: 100px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+  font-size: calc(10px + 2vmin);
+  color: white;
+
+  font-family: verdana, sans-serif;
+  overflow: hidden;
+}
+#header-logo {
+  width: 220px;
+  display: flex;
+  justify-content: flex-start;
+  padding-left: 20px;
+  transition: filter 0.3s ease;
+}
+#header-logo:hover {
+  filter: invert(100%);
+}
+
+#chatBtn {
+  height: 100px;
+  width: 100px;
+  padding-top: 5px;
+  transition: filter 0.3s ease;
+}
+
+#chatBtn:hover {
+  box-shadow: 0px 1px #666;
+  filter: invert(100%);
+}
+#header-button {
+  width: 220px;
+  display: flex;
+  justify-content: space-between;
+  padding-right: 20px;
+  align-items: center;
+  overflow-y: hidden;
+}
+.cube-button {
+  background-color: black;
+  border-radius: 20px;
+  border-color: white;
+  cursor: pointer;
+  transition: filter 0.3s ease;
+}
+.cube-button:hover {
+  filter: invert(100%);
+}
+#cube-button-container {
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+#logo {
+  width: 170px;
+  height: 170px;
+  text-decoration: none;
+  color: white;
+  justify-content: start;
+}
+
+#search-box {
+  background-color: transparent;
+  height: 50px;
+  width: 50vw;
+  text-align: center;
+  font-size: 25px;
+  font-family: "Poppins", sans-serif;
+  font-weight: 700;
+  color: white;
+  border-radius: 20px;
+  border: 2px solid white; /* This sets your border color to white explicitly */
+}
+/* Chrome, Safari, Edge */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  transition: background-color 5000s ease-in-out 0s;
+  -webkit-text-fill-color: #fff !important;
+}
+
+/* Firefox */
+input:-moz-autofill {
+  background-color: transparent !important;
+}
+
+input,
+::placeholder {
+  color: rgba(255, 255, 255, 0.363);
+}
+#search-box:focus {
+  outline: none;
+}
+
+.App-footer {
+  background-color: inherit;
+  height: 100px;
+  color: white;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+  font-family: verdana, sans-serif;
+  overflow: hidden;
+}
+
+#cubes {
+  pointer-events: none;
+  width: 0vw;
+  height: 0vh;
+}
+#routes-container {
+  position: relative;
+  z-index: 1;
+}
+#freezer-hbutton {
+  font: inherit;
+  border-radius: 20px;
+  background-color: transparent;
+  color: white;
+  /*margin: 0 20px 0 20px;*/
+  border-color: white;
+}
+
+#freezer-hbutton:hover {
+  box-shadow: 0 0 5px #c0c0c0, 0 0 5px #c0c0c0, 0 0 5px #c0c0c0, 0 0 5px #c0c0c0;
+}
+
+a {
+  color: white;
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: underline;
+}
