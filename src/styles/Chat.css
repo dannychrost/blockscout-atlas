@@ -18,9 +18,9 @@
   cursor: pointer;
 }
 .Chat {
-  overflow: hidden;
   font-family: sans-serif;
   text-align: center;
-  height: 100vh;
+  height: 70vh;
   width: 100vw;
+  z-index: 1;
 }

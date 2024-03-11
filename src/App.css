@@ -4,30 +4,10 @@
 
   overflow: hidden;
 }
-
-.App-header {
-  background-color: inherit;
-  height: 100px;
+#basic-navbar-nav .me-auto {
   display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-  position: relative;
-  font-size: calc(10px + 2vmin);
-  color: white;
-
-  font-family: verdana, sans-serif;
-  overflow: hidden;
-}
-#header-logo {
-  width: 220px;
-  display: flex;
-  justify-content: flex-start;
-  padding-left: 20px;
-  transition: filter 0.3s ease;
-}
-#header-logo:hover {
-  filter: invert(100%);
+  align-items: center; /* Vertically center items */
+  justify-content: space-between; /* Distribute space between items */
 }
 
 #chatBtn {
@@ -42,10 +22,9 @@
   filter: invert(100%);
 }
 #header-button {
-  width: 220px;
   display: flex;
   justify-content: space-between;
-  padding-right: 20px;
+
   align-items: center;
   overflow-y: hidden;
 }
@@ -66,24 +45,28 @@
   align-items: flex-start;
 }
 #logo {
-  width: 170px;
-  height: 170px;
+  width: 140px;
+  height: 140px;
   text-decoration: none;
   color: white;
-  justify-content: start;
+  transition: filter 0.3s ease;
+}
+
+#logo:hover {
+  filter: invert(30%);
 }
 
 #search-box {
   background-color: transparent;
-  height: 50px;
+  height: auto;
   width: 50vw;
   text-align: center;
   font-size: 25px;
   font-family: "Poppins", sans-serif;
   font-weight: 700;
-  color: white;
+  color: black;
   border-radius: 20px;
-  border: 2px solid white; /* This sets your border color to white explicitly */
+  border: 2px solid black; /* This sets your border color to white explicitly */
 }
 /* Chrome, Safari, Edge */
 input:-webkit-autofill,
@@ -101,7 +84,7 @@ input:-moz-autofill {
 
 input,
 ::placeholder {
-  color: rgba(255, 255, 255, 0.363);
+  color: black;
 }
 #search-box:focus {
   outline: none;
@@ -127,6 +110,7 @@ input,
 #routes-container {
   position: relative;
   z-index: 1;
+  min-height: 100vh;
 }
 #freezer-hbutton {
   font: inherit;
@@ -147,4 +131,40 @@ a {
 }
 a:hover {
   text-decoration: underline;
+}
+@keyframes twinkling {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+.star {
+  position: absolute;
+  width: 2px;
+  height: 2px;
+  background: white;
+  border-radius: 50%;
+  animation-name: twinkling;
+  animation-duration: 2s;
+  animation-iteration-count: infinite;
+  animation-timing-function: ease-in-out;
+
+  z-index: 10;
+  mix-blend-mode: difference;
+}
+/* App.css */
+.stars-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+
+  pointer-events: none; /* Allows clicks to pass through */
 }
