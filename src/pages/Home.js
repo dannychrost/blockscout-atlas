@@ -2,12 +2,7 @@ import React, { useState, useEffect } from "react";
 import "../styles/Home.css";
 import Tooltip from "../components/Tooltip";
 import { useNavigate } from "react-router-dom";
-import Button from "react-bootstrap/Button";
-import Card from "react-bootstrap/Card";
-import ListGroup from "react-bootstrap/ListGroup";
-import { Row, Col } from "react-bootstrap";
-import { Carousel } from "react-bootstrap";
-import Stack from "react-bootstrap/Stack";
+
 function Home() {
   const [transactions, setTransactions] = useState([]);
   const [blocks, setBlocks] = useState([]);
@@ -104,8 +99,8 @@ function Home() {
 
   return (
     <div className="home">
-      <Row>
-        <Col>
+      <div>
+        <div>
           <h1
             style={{
               textAlign: "center",
@@ -115,62 +110,67 @@ function Home() {
           >
             <strong>Latest Blocks</strong>
           </h1>
-
-          <Carousel wrap={true} touch={true} pause={"hover"}>
-            {chunkData(blocks).map(
-              (
-                blockGroup,
-                idx // Assuming blocks is an array of arrays
-              ) => (
-                <Carousel.Item key={idx}>
-                  <Row className="mb-5 justify-content-center">
-                    {" "}
-                    {/* Add bottom margin to give space for carousel controls */}
-                    {blockGroup.map((block) => (
-                      <Col key={block.hash} md={2}>
-                        <Card className="card-block">
-                          <Card.Header>
-                            Block{" "}
-                            <a
-                              href={`https://etherscan.io/block/${block.height}`}
-                              style={{ color: "black" }}
-                            >
-                              {block.height}
-                            </a>
-                          </Card.Header>
-                          <ListGroup variant="flush">
-                            <ListGroup.Item>
-                              Hash:{" "}
-                              <Tooltip identifier={block.hash} type={"block"} />
-                            </ListGroup.Item>
-                            <ListGroup.Item>
-                              Validator:{" "}
-                              <Tooltip
-                                identifier={block.miner.hash}
-                                type={"address"}
-                              />
-                            </ListGroup.Item>
-                            <ListGroup.Item>
-                              Reward:{" "}
-                              {weiToEth(block.rewards[0].reward).slice(0, 7)}{" "}
-                              ETH
-                            </ListGroup.Item>
-                          </ListGroup>
-                          <Card.Footer>
-                            Validated {timeSince(block.timestamp)} ago
-                          </Card.Footer>
-                        </Card>
-                      </Col>
-                    ))}
-                  </Row>
-                </Carousel.Item>
-              )
-            )}
-          </Carousel>
-        </Col>
-      </Row>
-      <Row>
-        <Col>
+          <div blocks={blocks.slice(0, 7)} />
+          <div wrap={true} touch={true} pause={"hover"}>
+            {chunkData(blocks)
+              .slice(0, 7)
+              .map(
+                (
+                  blockGroup,
+                  idx // Assuming blocks is an array of arrays
+                ) => (
+                  <div key={idx}>
+                    <div className="mb-5 justify-content-center">
+                      {" "}
+                      {/* Add bottom margin to give space for carousel controls */}
+                      {blockGroup.map((block) => (
+                        <div key={block.hash} md={2}>
+                          <div className="card-block">
+                            <div>
+                              Block{" "}
+                              <a
+                                href={`https://etherscan.io/block/${block.height}`}
+                                style={{ color: "black" }}
+                              >
+                                {block.height}
+                              </a>
+                            </div>
+                            <div variant="flush">
+                              <div>
+                                Hash:{" "}
+                                <Tooltip
+                                  identifier={block.hash}
+                                  type={"block"}
+                                />
+                              </div>
+                              <div>
+                                Validator:{" "}
+                                <Tooltip
+                                  identifier={block.miner.hash}
+                                  type={"address"}
+                                />
+                              </div>
+                              <div>
+                                Reward:{" "}
+                                {weiToEth(block.rewards[0].reward).slice(0, 7)}{" "}
+                                ETH
+                              </div>
+                            </div>
+                            <div>
+                              Validated {timeSince(block.timestamp)} ago
+                            </div>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )
+              )}
+          </div>
+        </div>
+      </div>
+      <div>
+        <div>
           <h1
             style={{
               textAlign: "center",
@@ -180,52 +180,46 @@ function Home() {
           >
             <strong>Latest Transactions</strong>
           </h1>
-          <Carousel wrap={true} touch={true} pause={"hover"}>
+          <div wrap={true} touch={true} pause={"hover"}>
             {chunkData(transactions).map((transactionGroup, index) => (
-              <Carousel.Item key={index}>
-                <Row className="mb-5 justify-content-center">
+              <div key={index}>
+                <div className="mb-5 justify-content-center">
                   {transactionGroup.map((tx) => (
-                    <Col key={tx.hash} md={2}>
-                      <Card className="card-block">
-                        <Card.Header>
-                          Transaction {tx.hash.substring(0, 10)}...
-                        </Card.Header>
-                        <ListGroup variant="flush">
-                          <ListGroup.Item>
+                    <div key={tx.hash} md={2}>
+                      <div className="card-block">
+                        <div>Transaction {tx.hash.substring(0, 10)}...</div>
+                        <div variant="flush">
+                          <div>
                             Hash: <Tooltip identifier={tx.hash} type={"hash"} />
-                          </ListGroup.Item>
-                          <ListGroup.Item>
+                          </div>
+                          <div>
                             From:{" "}
                             <Tooltip
                               identifier={tx.from.hash}
                               type={"address"}
                             />
-                          </ListGroup.Item>
-                          <ListGroup.Item>
+                          </div>
+                          <div>
                             To:{" "}
                             <Tooltip identifier={tx.to.hash} type={"address"} />
-                          </ListGroup.Item>
-                          <ListGroup.Item>
-                            Value: {weiToEth(tx.value)} ETH
-                          </ListGroup.Item>
-                          <ListGroup.Item>
+                          </div>
+                          <div>Value: {weiToEth(tx.value)} ETH</div>
+                          <div>
                             Fee:{" "}
                             {calculateTransactionFee(tx.gas_price, tx.gas_used)}{" "}
                             ETH
-                          </ListGroup.Item>
-                        </ListGroup>
-                        <Card.Footer>
-                          Validated {timeSince(tx.timestamp)} ago
-                        </Card.Footer>
-                      </Card>
-                    </Col>
+                          </div>
+                        </div>
+                        <div>Validated {timeSince(tx.timestamp)} ago</div>
+                      </div>
+                    </div>
                   ))}
-                </Row>
-              </Carousel.Item>
+                </div>
+              </div>
             ))}
-          </Carousel>
-        </Col>
-      </Row>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }

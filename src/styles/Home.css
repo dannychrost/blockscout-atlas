@@ -12,15 +12,15 @@
 
 .star {
   position: absolute;
-  width: 3px;
-  height: 3px;
+  width: 5px;
+  height: 5px;
   background: white;
   border-radius: 50%;
   animation: twinkling 2s infinite ease-in-out;
+  z-index: 0;
 }
 
 .star {
-  z-index: 1;
   mix-blend-mode: difference;
 }
 .home {
@@ -28,31 +28,4 @@
   display: flex;
   flex-direction: column;
   justify-content: space-around;
-}
-
-.carousel-control-prev,
-.carousel-control-next {
-}
-
-.carousel-indicators {
-  z-index: 1;
-}
-/* Home.css */
-.card-block {
-  cursor: pointer;
-  margin: 0.5rem;
-  border-left: 5px solid #007bff; /* A thick left border to look like a block connection */
-  transition: transform 0.2s; /* Smooth transition for hover effect */
-  text-align: center;
-}
-
-.card-block:hover {
-  transform: scale(1.03); /* Slightly scale cards on hover */
-}
-/* Home.css */
-.carousel-control-prev-icon,
-.carousel-control-next-icon {
-  border-radius: 10px;
-  background-color: black;
-  border-color: #fff; /* Or any color that stands out from the background */
 }
