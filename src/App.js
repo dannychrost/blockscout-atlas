@@ -1,5 +1,3 @@
-import logo from "./logo2.png";
-import chatBtn from "./chat-button2.png";
 import "./App.css";
 import React, { useState, useEffect } from "react";
 import {
@@ -9,15 +7,19 @@ import {
   Link,
   useNavigate,
 } from "react-router-dom";
+import Header from "./components/Header";
+import Footer from "./components/Footer";
 import Home from "./pages/Home";
 import Query from "./pages/Query2";
+import CubesPage from "./pages/CubesPage";
 
 import FallingCube from "./FallingCube";
-import ButtonCube from "./ButtonCube";
+
 import Blocks from "./pages/Blocks";
 import Chat from "./pages/Chat";
 import Transactions from "./pages/Transactions";
 
+import { useMediaQuery } from "react-responsive";
 function App() {
   const [ethPrice, setEthPrice] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -47,6 +49,28 @@ function App() {
         setError(err.message);
         setLoading(false);
       });
+
+    // Create stars
+    const starsContainer = document.createElement("div");
+    starsContainer.classList.add("stars-container");
+
+    for (let i = 0; i < 100; i++) {
+      const star = document.createElement("div");
+      star.classList.add("star");
+      star.style.left = `${Math.random() * 100}%`;
+      star.style.top = `${Math.random() * 100}%`;
+
+      // Assign a random animation delay between 0 and 5 seconds
+      const animationDelay = Math.random() * 5;
+      star.style.animationDelay = `${animationDelay}s`;
+
+      starsContainer.appendChild(star);
+    }
+
+    document.body.prepend(starsContainer); // prepend to keep z-index order
+    return () => {
+      document.body.removeChild(starsContainer);
+    };
   }, []);
 
   //if (loading) return <div>Loading...</div>;
@@ -65,41 +89,18 @@ function App() {
     height: "50%", // Cube will take full height of the button
     width: "50%", // Cube will take full width of the button
   };
-
+  const isLargeScreen = useMediaQuery({ minWidth: 992 });
   return (
     <div className="App">
-      <header className="App-header">
-        <div id="header-logo">
-          <Link to="/" id="logo">
-            <img id="logo" src={logo}></img>
-          </Link>
-        </div>
-        <div id="header-search">
-          <form onSubmit={handleQuerySubmit}>
-            <input
-              id="search-box"
-              placeholder="Search by address / txn hash / block / token..."
-              value={query}
-              onChange={handleQueryChange}
-            />{" "}
-          </form>
-        </div>
-
-        <div id="header-button">
-          <Link to="/Chat">
-            <img id="chatBtn" src={chatBtn}></img>
-          </Link>
-          <div id="cube-button-container">
-            <button
-              onClick={toggleAnimation}
-              className="cube-button"
-              style={{ width: "100px", height: "100px" }}
-            >
-              <ButtonCube isAnimating={isAnimating} style={cubeStyle} />
-            </button>
-          </div>
-        </div>
-      </header>
+      <Header
+        {...{
+          toggleAnimation,
+          query,
+          handleQueryChange,
+          handleQuerySubmit,
+          isAnimating,
+        }}
+      />
       <div id="cubes">
         <FallingCube isAnimating={isAnimating} />
         <FallingCube isAnimating={isAnimating} />
@@ -130,17 +131,11 @@ function App() {
           <Route path="/Blocks" element={<Blocks />} />
           <Route path="/Transactions" element={<Transactions />} />
           <Route path="/Chat" element={<Chat />} />
+          <Route path="/CubesPage" element={<CubesPage />} />
         </Routes>
       </div>
 
-      <footer className="App-footer">
-        <a>Contact Us</a>
-        <a>Terms of Service</a>
-        <a>Privacy Policy</a>
-        <a>Disclaimer</a>
-        <a>© 2023 The Node Project</a>
-        {/*<form></form>*/}
-      </footer>
+      <Footer />
     </div>
   );
 }

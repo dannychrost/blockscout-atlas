@@ -1,22 +1,13 @@
-.App {
-  /*background-image: linear-gradient(rgb(109, 109, 221), rgb(214, 113, 113));*/
-  background-image: linear-gradient(rgb(109, 109, 221), #282c34);
-
+.App-footer {
+  background-color: inherit;
+  height: 100px;
+  color: white;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+  font-family: verdana, sans-serif;
   overflow: hidden;
-}
-
-/* Chrome, Safari, Edge */
-input:-webkit-autofill,
-input:-webkit-autofill:hover,
-input:-webkit-autofill:focus,
-input:-webkit-autofill:active {
-  transition: background-color 5000s ease-in-out 0s;
-  -webkit-text-fill-color: #fff !important;
-}
-
-/* Firefox */
-input:-moz-autofill {
-  background-color: transparent !important;
 }
 
 #cubes {
@@ -28,6 +19,10 @@ input:-moz-autofill {
   position: relative;
   z-index: 1;
   min-height: 100vh;
+}
+
+#freezer-hbutton:hover {
+  box-shadow: 0 0 5px #c0c0c0, 0 0 5px #c0c0c0, 0 0 5px #c0c0c0, 0 0 5px #c0c0c0;
 }
 
 a {

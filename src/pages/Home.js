@@ -88,80 +88,136 @@ function Home() {
       return Math.floor(interval) + " minutes";
     }
     return Math.floor(seconds) + " seconds";
-  }
+  } // Function to chunk transactions into groups of 3
+  const chunkData = (data) => {
+    let chunks = [];
+    for (let i = 0; i < data.length; i += 3) {
+      chunks.push(data.slice(i, i + 3));
+    }
+    return chunks;
+  };
 
   return (
     <div className="home">
-      <div id="bt-container">
-        <div id="blocks">
-          <ul>
-            <li id="table-h">Latest Blocks</li>
-            {blocks.slice(0, 6).map((block, index) => (
-              <li key={block.hash}>
-                <div className="transaction-info">
-                  <strong>{index + 1}</strong>
-                </div>
-                <div className="block-info">
-                  <strong>Hash:</strong>{" "}
-                  <Tooltip identifier={block.hash} type={"block"} />
-                  <strong>Time:</strong> {timeSince(block.timestamp)} ago
-                </div>
-                <div className="block-info">
-                  <strong>Validator:</strong>{" "}
-                  <Tooltip identifier={block.miner.hash} type={"address"} />
-                  <strong>Height:</strong>
-                  <a href={`https://etherscan.io/block/${block.height}`}>
-                    <div className="height-inner">{block.height}</div>
-                  </a>
-                </div>
-                <div className="reward-info">
-                  <strong>Reward:</strong>{" "}
-                  <div className="reward-info-inner">
-                    {weiToEth(block.rewards[0].reward).slice(0, 7)} ETH
+      <div>
+        <div>
+          <h1
+            style={{
+              textAlign: "center",
+              color: "black",
+              textShadow: "white 1px 0 10px",
+            }}
+          >
+            <strong>Latest Blocks</strong>
+          </h1>
+          <div blocks={blocks.slice(0, 7)} />
+          <div wrap={true} touch={true} pause={"hover"}>
+            {chunkData(blocks)
+              .slice(0, 7)
+              .map(
+                (
+                  blockGroup,
+                  idx // Assuming blocks is an array of arrays
+                ) => (
+                  <div key={idx}>
+                    <div className="mb-5 justify-content-center">
+                      {" "}
+                      {/* Add bottom margin to give space for carousel controls */}
+                      {blockGroup.map((block) => (
+                        <div key={block.hash} md={2}>
+                          <div className="card-block">
+                            <div>
+                              Block{" "}
+                              <a
+                                href={`https://etherscan.io/block/${block.height}`}
+                                style={{ color: "black" }}
+                              >
+                                {block.height}
+                              </a>
+                            </div>
+                            <div variant="flush">
+                              <div>
+                                Hash:{" "}
+                                <Tooltip
+                                  identifier={block.hash}
+                                  type={"block"}
+                                />
+                              </div>
+                              <div>
+                                Validator:{" "}
+                                <Tooltip
+                                  identifier={block.miner.hash}
+                                  type={"address"}
+                                />
+                              </div>
+                              <div>
+                                Reward:{" "}
+                                {weiToEth(block.rewards[0].reward).slice(0, 7)}{" "}
+                                ETH
+                              </div>
+                            </div>
+                            <div>
+                              Validated {timeSince(block.timestamp)} ago
+                            </div>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
                   </div>
-                </div>
-              </li>
-            ))}
-            <li id="table-f">
-              <button className="bt-table-btn" onClick={goToBlocks}>
-                View All Blocks
-              </button>
-            </li>
-          </ul>
+                )
+              )}
+          </div>
         </div>
-        <div id="transactions">
-          <ul>
-            <li id="table-h">Latest Transactions</li>
-            {transactions.slice(0, 6).map((tx, index) => (
-              <li key={tx.hash} classname="mp">
-                <div className="transaction-info">
-                  <strong>{index + 1}</strong>
+      </div>
+      <div>
+        <div>
+          <h1
+            style={{
+              textAlign: "center",
+              color: "black",
+              textShadow: "white 1px 0 10px",
+            }}
+          >
+            <strong>Latest Transactions</strong>
+          </h1>
+          <div wrap={true} touch={true} pause={"hover"}>
+            {chunkData(transactions).map((transactionGroup, index) => (
+              <div key={index}>
+                <div className="mb-5 justify-content-center">
+                  {transactionGroup.map((tx) => (
+                    <div key={tx.hash} md={2}>
+                      <div className="card-block">
+                        <div>Transaction {tx.hash.substring(0, 10)}...</div>
+                        <div variant="flush">
+                          <div>
+                            Hash: <Tooltip identifier={tx.hash} type={"hash"} />
+                          </div>
+                          <div>
+                            From:{" "}
+                            <Tooltip
+                              identifier={tx.from.hash}
+                              type={"address"}
+                            />
+                          </div>
+                          <div>
+                            To:{" "}
+                            <Tooltip identifier={tx.to.hash} type={"address"} />
+                          </div>
+                          <div>Value: {weiToEth(tx.value)} ETH</div>
+                          <div>
+                            Fee:{" "}
+                            {calculateTransactionFee(tx.gas_price, tx.gas_used)}{" "}
+                            ETH
+                          </div>
+                        </div>
+                        <div>Validated {timeSince(tx.timestamp)} ago</div>
+                      </div>
+                    </div>
+                  ))}
                 </div>
-
-                <div className="transaction-info">
-                  <strong>Hash:</strong>{" "}
-                  <Tooltip identifier={tx.hash} type={"hash"} />
-                  <strong>Time:</strong> {timeSince(tx.timestamp)} ago
-                </div>
-                <div className="transaction-info">
-                  <strong>From:</strong>{" "}
-                  <Tooltip identifier={tx.from.hash} type={"address"} />
-                  <strong>To:</strong>{" "}
-                  <Tooltip identifier={tx.to.hash} type={"address"} />
-                </div>
-                <div className="transaction-info">
-                  <strong>Value:</strong> {weiToEth(tx.value)} ETH
-                  <strong>Fee:</strong>
-                  {calculateTransactionFee(tx.gas_price, tx.gas_used)} ETH
-                </div>
-              </li>
+              </div>
             ))}
-            <li id="table-f">
-              <button className="bt-table-btn" onClick={goToTransactions}>
-                View All Transactions
-              </button>
-            </li>
-          </ul>
+          </div>
         </div>
       </div>
     </div>

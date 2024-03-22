@@ -3,18 +3,35 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@radix-ui/react-label": "^2.0.2",
+    "@radix-ui/react-select": "^2.0.0",
+    "@radix-ui/react-slot": "^1.0.2",
+    "@react-three/drei": "^9.102.4",
+    "@react-three/fiber": "^8.15.19",
+    "@react-three/postprocessing": "^2.16.2",
     "@sendbird/uikit-react": "^3.9.3",
+    "@tanstack/react-table": "^8.13.2",
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
+    "@use-gesture/react": "^10.3.0",
     "axios": "^1.6.5",
+    "class-variance-authority": "^0.7.0",
+    "clsx": "^2.1.0",
     "crypto-js": "^4.2.0",
+    "lucide-react": "^0.358.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-responsive": "^9.0.2",
     "react-rnd": "^10.4.1",
     "react-router-dom": "^6.17.0",
     "react-scripts": "5.0.1",
+    "react-slick": "^0.30.2",
     "react-spring": "^9.7.3",
+    "slick-carousel": "^1.8.1",
+    "tailwind-merge": "^2.2.2",
+    "tailwindcss-animate": "^1.0.7",
+    "three": "^0.162.0",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
@@ -40,5 +57,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "tailwindcss": "^3.4.1"
   }
 }

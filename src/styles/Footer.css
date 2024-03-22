@@ -1,0 +1,11 @@
+.App-footer {
+  background-color: inherit;
+  height: 100px;
+  color: white;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+  font-family: verdana, sans-serif;
+  overflow: hidden;
+}
