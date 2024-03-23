@@ -1,5 +1,5 @@
 import "./App.css";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Suspense } from "react";
 import {
   BrowserRouter as Router,
   Routes,
@@ -11,7 +11,6 @@ import Header from "./components/Header";
 import Footer from "./components/Footer";
 import Home from "./pages/Home";
 import Query from "./pages/Query2";
-import CubesPage from "./pages/CubesPage";
 
 import FallingCube from "./FallingCube";
 
@@ -20,6 +19,7 @@ import Chat from "./pages/Chat";
 import Transactions from "./pages/Transactions";
 
 import { useMediaQuery } from "react-responsive";
+const CubesPage = React.lazy(() => import("./pages/CubesPage"));
 function App() {
   const [ethPrice, setEthPrice] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -28,7 +28,11 @@ function App() {
   const navigate = useNavigate();
   const [isAnimating, setIsAnimating] = useState(true);
   const toggleAnimation = () => setIsAnimating(!isAnimating);
+  const [theme, setTheme] = useState("light"); // Default theme
 
+  const changeTheme = () => {
+    setTheme((prevTheme) => (prevTheme === "light" ? "dark" : "light"));
+  };
   useEffect(() => {
     const url = "https://eth.blockscout.com/api/v2/main-page/transactions";
 
@@ -64,14 +68,18 @@ function App() {
       const animationDelay = Math.random() * 5;
       star.style.animationDelay = `${animationDelay}s`;
 
+      // Update star color based on theme
+      star.style.backgroundColor = theme === "light" ? "white" : "white"; // Adjust colors as needed
+
       starsContainer.appendChild(star);
     }
 
-    document.body.prepend(starsContainer); // prepend to keep z-index order
+    document.body.prepend(starsContainer);
+
     return () => {
       document.body.removeChild(starsContainer);
     };
-  }, []);
+  }, [theme]); // Add 'theme' to the dependency array to recreate stars on theme change
 
   //if (loading) return <div>Loading...</div>;
   //if (error) return <div>Error: {error}</div>;
@@ -91,7 +99,7 @@ function App() {
   };
   const isLargeScreen = useMediaQuery({ minWidth: 992 });
   return (
-    <div className="App">
+    <div className={`App ${theme}`}>
       <Header
         {...{
           toggleAnimation,
@@ -99,43 +107,47 @@ function App() {
           handleQueryChange,
           handleQuerySubmit,
           isAnimating,
+          changeTheme,
+          theme,
         }}
       />
       <div id="cubes">
-        <FallingCube isAnimating={isAnimating} />
-        <FallingCube isAnimating={isAnimating} />
-        <FallingCube isAnimating={isAnimating} />
-        <FallingCube isAnimating={isAnimating} />
-        <FallingCube isAnimating={isAnimating} />
-        <FallingCube isAnimating={isAnimating} />
-        <FallingCube isAnimating={isAnimating} />
-        <FallingCube isAnimating={isAnimating} />
-        <FallingCube isAnimating={isAnimating} />
-        <FallingCube isAnimating={isAnimating} />
+        <FallingCube isAnimating={isAnimating} theme={theme} />
+        <FallingCube isAnimating={isAnimating} theme={theme} />
+        <FallingCube isAnimating={isAnimating} theme={theme} />
+        <FallingCube isAnimating={isAnimating} theme={theme} />
+        <FallingCube isAnimating={isAnimating} theme={theme} />
+        <FallingCube isAnimating={isAnimating} theme={theme} />
+        <FallingCube isAnimating={isAnimating} theme={theme} />
+        <FallingCube isAnimating={isAnimating} theme={theme} />
+        <FallingCube isAnimating={isAnimating} theme={theme} />
+        <FallingCube isAnimating={isAnimating} theme={theme} />
 
-        <FallingCube isAnimating={isAnimating} />
-        <FallingCube isAnimating={isAnimating} />
-        <FallingCube isAnimating={isAnimating} />
-        <FallingCube isAnimating={isAnimating} />
-        <FallingCube isAnimating={isAnimating} />
-        <FallingCube isAnimating={isAnimating} />
-        <FallingCube isAnimating={isAnimating} />
-        <FallingCube isAnimating={isAnimating} />
-        <FallingCube isAnimating={isAnimating} />
-        <FallingCube isAnimating={isAnimating} />
+        <FallingCube isAnimating={isAnimating} theme={theme} />
+        <FallingCube isAnimating={isAnimating} theme={theme} />
+        <FallingCube isAnimating={isAnimating} theme={theme} />
+        <FallingCube isAnimating={isAnimating} theme={theme} />
+        <FallingCube isAnimating={isAnimating} theme={theme} />
+        <FallingCube isAnimating={isAnimating} theme={theme} />
+        <FallingCube isAnimating={isAnimating} theme={theme} />
+        <FallingCube isAnimating={isAnimating} theme={theme} />
+        <FallingCube isAnimating={isAnimating} theme={theme} />
+        <FallingCube isAnimating={isAnimating} theme={theme} />
       </div>
       <div id="routes-container">
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/Query/:searchTerm" element={<Query />} />
-          <Route path="/Blocks" element={<Blocks />} />
-          <Route path="/Transactions" element={<Transactions />} />
-          <Route path="/Chat" element={<Chat />} />
-          <Route path="/CubesPage" element={<CubesPage />} />
-        </Routes>
+        <Suspense fallback={<div>Loading Page...</div>}>
+          <Routes>
+            <Route path="/OldHome" element={<Home />} />
+            <Route path="/Query/:searchTerm" element={<Query />} />
+            <Route path="/Blocks" element={<Blocks />} />
+            <Route path="/Transactions" element={<Transactions />} />
+            <Route path="/Chat" element={<Chat />} />
+            <Route path="/" element={<CubesPage theme={theme} />} />
+          </Routes>
+        </Suspense>
       </div>
 
-      <Footer />
+      <Footer theme={theme} />
     </div>
   );
 }

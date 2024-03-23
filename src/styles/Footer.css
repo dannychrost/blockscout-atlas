@@ -1,11 +1,25 @@
 .App-footer {
-  background-color: inherit;
   height: 100px;
-  color: white;
+
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: space-around;
   font-family: verdana, sans-serif;
   overflow: hidden;
+}
+
+.footerLight,
+.footerLight a {
+  color: black;
+}
+
+.footerDark,
+.footerDark a {
+  color: white;
+}
+
+a:hover {
+  text-decoration: underline;
+  color: gray;
 }

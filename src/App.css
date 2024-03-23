@@ -1,8 +1,15 @@
 .App {
   /*background-image: linear-gradient(rgb(109, 109, 221), rgb(214, 113, 113));*/
-  background-image: linear-gradient(rgb(109, 109, 221), #282c34);
 
+  font-family: "Space Mono", monospace;
   overflow: hidden;
+}
+
+.light {
+  background-color: white;
+}
+.dark {
+  background-color: black;
 }
 
 /* Chrome, Safari, Edge */
@@ -36,40 +43,4 @@ a {
 }
 a:hover {
   text-decoration: underline;
-}
-@keyframes twinkling {
-  0% {
-    opacity: 0;
-  }
-  50% {
-    opacity: 1;
-  }
-  100% {
-    opacity: 0;
-  }
-}
-
-.star {
-  position: absolute;
-  width: 2px;
-  height: 2px;
-  background: white;
-  border-radius: 50%;
-  animation-name: twinkling;
-  animation-duration: 2s;
-  animation-iteration-count: infinite;
-  animation-timing-function: ease-in-out;
-
-  z-index: 10;
-  mix-blend-mode: difference;
-}
-/* App.css */
-.stars-container {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-
-  pointer-events: none; /* Allows clicks to pass through */
 }
