@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { Canvas } from "@react-three/fiber";
+import { Canvas, useLoader } from "@react-three/fiber";
 import { Edges, Text } from "@react-three/drei";
-import { useSpring, animated } from "@react-spring/three";
+import { animated, useSpring } from "@react-spring/three";
 import { Bloom } from "@react-three/postprocessing";
 import Tooltip from "../components/Tooltip";
 import { Box } from "lucide-react";
@@ -23,6 +23,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+//import { FontLoader } from "three/addons/loaders/FontLoader.js";
+
 function weiToEth(val) {
   if (val == 0) return val;
   return `${val / 10e17}`;
@@ -59,7 +61,15 @@ function timeSince(dateParam) {
   }
   return Math.floor(seconds) + " seconds";
 }
-function FloatingCube({ position, text, onHover, onClick, scaleFactor }) {
+
+function FloatingCube({
+  position,
+  text,
+  onHover,
+  onClick,
+  scaleFactor,
+  theme,
+}) {
   // State to handle hover
   const [hovered, setHovered] = useState(false);
 
@@ -68,6 +78,15 @@ function FloatingCube({ position, text, onHover, onClick, scaleFactor }) {
     scale: hovered ? scaleFactor : 1,
     config: { duration: 250 }, // Animation duration of 250ms
   });
+  /*
+  const loader = new FontLoader();
+  const font = loader.load(
+    // resource URL
+    "/Space_Mono_Regular.json",
+    function (font) {
+      console.log(font);
+    }
+  );*/
 
   return (
     <animated.mesh
@@ -90,13 +109,14 @@ function FloatingCube({ position, text, onHover, onClick, scaleFactor }) {
         transparent
         opacity={0.15}
       />
-      <Edges scale={1} color="white" />
+      <Edges scale={1} color={theme === "light" ? "black" : "white"} />
       <Text
         position={[0, 0, 0]}
-        fontSize={0.2}
-        color="black"
+        fontSize={0.4}
+        color={theme === "light" ? "black" : "white"}
         anchorX="center"
         anchorY="middle"
+        //font={font}
       >
         {text}
       </Text>
@@ -104,7 +124,7 @@ function FloatingCube({ position, text, onHover, onClick, scaleFactor }) {
   );
 }
 
-export default function FloatingCubes() {
+export default function FloatingCubes({ theme }) {
   const [blocks, setBlocks] = useState([]);
   const [loading, setLoading] = useState(true);
   const [detailCube, setDetailCube] = useState(null);
@@ -119,6 +139,7 @@ export default function FloatingCubes() {
 
   useEffect(() => {
     async function fetchBlocks() {
+      setLoading(true);
       try {
         const response = await fetch(
           "https://eth.blockscout.com/api/v2/blocks"
@@ -137,7 +158,7 @@ export default function FloatingCubes() {
   // Function to handle cube click
   const handleCubeClick = (index) => {
     // If a detail card is already shown, hide it. Otherwise, show the clicked cube's details
-    setDetailCube(detailCube === index ? null : index);
+    setDetailCube(detailCube === index ? null : index + 7);
   };
   // Function to handle hover
   const handleHover = (hoverState) => {
@@ -160,10 +181,11 @@ export default function FloatingCubes() {
                 0,
                 0,
               ]}
-              text={`${block.height}`}
+              text={`${index + 1}`}
               onHover={handleHover}
               onClick={() => handleCubeClick(index)}
               scaleFactor={1.5}
+              theme={theme}
             />
           ))}
           <Bloom
@@ -202,6 +224,7 @@ export default function FloatingCubes() {
                   onHover={handleHover}
                   onClick={null}
                   scaleFactor={3}
+                  theme={theme}
                 />
 
                 <Bloom
@@ -211,6 +234,9 @@ export default function FloatingCubes() {
                   luminanceSmoothing={0.75}
                 />
               </Canvas>
+            </div>
+            <div>
+              {/*INSERT TABLE HERE. USE VARIABLE blocks[detailCube.hash] to get the block number to query*/}
             </div>
             <div className="grid w-full items-center gap-4">
               <div className="flex flex-col space-y-1.5">

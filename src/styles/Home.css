@@ -12,9 +12,9 @@
 
 .star {
   position: absolute;
-  width: 5px;
-  height: 5px;
-  background: white;
+  width: 3px;
+  height: 3px;
+  background: black;
   border-radius: 50%;
   animation: twinkling 2s infinite ease-in-out;
   z-index: 0;

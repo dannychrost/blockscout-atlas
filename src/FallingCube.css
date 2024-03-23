@@ -13,8 +13,18 @@
   width: 100%;
   height: 100%;
   background-color: rgba(255, 255, 255, 0); /* Translucent faces */
-  border: 1px solid rgba(180, 180, 255, 0.5); /* Neon edges */
+
   box-shadow: 0 0 10px rgba(180, 180, 255, 0.1); /* Neon glow */
+}
+/* Existing styles... */
+
+/* Add these for theme-based border colors */
+.cubeLight div {
+  border: 1px solid white; /* Light theme border color */
+}
+
+.cubeDark div {
+  border: 1px solid black; /* Dark theme border color */
 }
 
 .face1 {

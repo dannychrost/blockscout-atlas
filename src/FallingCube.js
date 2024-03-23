@@ -18,7 +18,7 @@ const CubeFaces = () => {
     </>
   );
 };
-const FallingCube = ({ isAnimating }) => {
+const FallingCube = ({ isAnimating, theme }) => {
   // Get a random starting X and Y position
   const startX = getRandomX();
   const startY = getRandomY();
@@ -62,7 +62,7 @@ const FallingCube = ({ isAnimating }) => {
   }, [isAnimating, api]);
   return (
     <animated.div
-      className="cube"
+      className={`cube ${theme === "light" ? "cubeDark" : "cubeLight"}`}
       style={{
         transform: props.xy.to(
           (x, y) =>
